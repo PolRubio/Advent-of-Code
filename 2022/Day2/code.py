@@ -1,19 +1,10 @@
-f = open("input.txt", "r")
-x = []
-for i in f:
-  x.append(i.replace('\n',''))
+with open("input.txt") as f: raw=f.read()
 
-n=0
-m=0
+opponent = {'A': 0, 'B': 1, 'C': 2}
+you = {'X': 0, 'Y': 1, 'Z': 2}
 
-for y in x:
-    if(y != ""):
-        n += int(y)
-    
-    elif(m<n):
-        m = n
-        n = 0
-    else:
-        n = 0
+puntuations = [[4, 8, 3], [1, 5, 9], [7, 2, 6]]
 
-print(m)
+points = sum([puntuations[opponent.get(i[0])][you.get(i[-1])] for i in raw.splitlines()])
+
+print(points)
