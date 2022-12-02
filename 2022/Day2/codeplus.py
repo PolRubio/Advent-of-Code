@@ -1,65 +1,12 @@
-f = open("input.txt", "r")
-x = []
-for i in f:
-  x.append(i.replace('\n',''))
+with open("input.txt") as f: raw=f.read()
 
-n=0
-m=[0,0,0]
+opponent = {'A': 0, 'B': 1, 'C': 2}
+you = {'X': 0, 'Y': 1, 'Z': 2}
 
-for y in x:
-    if(y != ""):
-        n += int(y)
+puntuations = [[4, 8, 3], [1, 5, 9], [7, 2, 6]]
 
-    elif(m[0]<n):
-        print(m)
-        print(n)
-        print()
-        m[2] = m[1]
-        m[1] = m[0]
-        m[0] = n
-        n = 0
-    
-    elif(m[1]<n):
-        print(m)
-        print(n)
-        print()
-        m[2] = m[1]
-        m[1] = n
-        n = 0
-    
-    elif(m[2]<n):
-        print(m)
-        print(n)
-        print()
-        m[2] = n
-        n = 0
+correspondence = [['Z', 'X', 'Y'], ['X', 'Y', 'Z'], ['Y', 'Z', 'X']]
 
-    else:
-        n = 0
+points = sum([puntuations[opponent.get(i[0])][you.get(correspondence[opponent.get(i[0])][you.get(i[-1])])] for i in raw.splitlines()])
 
-if(m[0]<n):
-    print(m)
-    print(n)
-    print()
-    m[2] = m[1]
-    m[1] = m[0]
-    m[0] = n
-    n = 0
-
-elif(m[1]<n):
-    print(m)
-    print(n)
-    print()
-    m[2] = m[1]
-    m[1] = n
-    n = 0
-
-elif(m[2]<n):
-    print(m)
-    print(n)
-    print()
-    m[2] = n
-    n = 0
-
-print(m)
-print(sum(m))
+print(points)
