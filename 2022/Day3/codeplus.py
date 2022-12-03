@@ -1,12 +1,27 @@
-with open("input.txt") as f: raw=f.read()
+import numpy as np
+with open("input2.txt") as f: raw=f.read()
 
-opponent = {'A': 0, 'B': 1, 'C': 2}
-you = {'X': 0, 'Y': 1, 'Z': 2}
+priority = {chr(i): i-ord('a')+1 for i in range(ord('a'), ord('z')+1)}
+priority.update({chr(i): i-ord('A')+27 for i in range(ord('A'), ord('Z')+1)})
 
-puntuations = [[4, 8, 3], [1, 5, 9], [7, 2, 6]]
 
-correspondence = [['Z', 'X', 'Y'], ['X', 'Y', 'Z'], ['Y', 'Z', 'X']]
 
-points = sum([puntuations[opponent.get(i[0])][you.get(correspondence[opponent.get(i[0])][you.get(i[-1])])] for i in raw.splitlines()])
+lines = [i for i in raw.splitlines()]
 
-print(points)
+groups = []
+group = []
+cont  = 0
+
+for l in lines:
+    group.append(l)
+    cont += 1
+    if cont == 3:
+        groups.append(group)
+        group = []
+        cont = 0
+
+print(groups)
+
+# points = sum(np.sum([puntuations[n] for n in np.intersect1d(np.array([j for j in i])[:int(len(i)/2)], np.array([j for j in i])[int(len(i)/2):])]) for i in raw.splitlines())
+
+# print(points)
