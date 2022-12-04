@@ -33,6 +33,8 @@ for g in groups:
 
 # print(groups)
 
+priorities = sum([priority[i] for i in np.intersect1d(np.intersect1d(np.array([l for l in g[0]]), np.array([l for l in g[1]])), np.array([l for l in g[2]])) for g in groups])
+
 # priorities = sum(np.sum([priority[n] for n in np.intersect1d(np.array([j for j in i])[:int(len(i)/2)], np.array([j for j in i])[int(len(i)/2):])]) for i in raw.splitlines())
 
 print(priorities)
